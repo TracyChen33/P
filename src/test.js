@@ -15,37 +15,27 @@ const run =()=>{
   demo.scrollTop = demo.scrollHeight
   console.log(n + ':' + string.substr(0, n))
 }
-let id = setInterval(() => {
- run()
-}, time)
+let id = setInterval(run, time)
 
 btnPause.onclick=()=>{
   window.clearInterval(id)
 }
 btnPlay.onclick=()=>(
-  id = setInterval(() => {
-    run()
-  }, time)
+  id = setInterval(run, time)
 )
 
 btnSlow.onclick=()=>{
   window.clearInterval(id)
   time = 300
-  id = setInterval(() => {
-    run()
-  }, time)
+  id = setInterval(run, time)
 }
 btnNormal.onclick=()=>{
   window.clearInterval(id)
   time = 100
-  id = setInterval(() => {
-    run()
-  }, time)
+  id = setInterval(run, time)
 }
 btnFast.onclick=()=>{
   window.clearInterval(id)
   time = 0
-  id = setInterval(() => {
-    run()
-  }, time)
+  id = setInterval(run, time)
 }
