@@ -155,8 +155,10 @@ var player = {
   },
   bindEvents: function bindEvents() {
     for (var key in player.events) {
-      var value = player.events[key];
-      document.querySelector(key).onclick = player[value];
+      if (player.events.hasOwnProperty(key)) {
+        var value = player.events[key];
+        document.querySelector(key).onclick = player[value];
+      }
     }
   },
   run: function run() {

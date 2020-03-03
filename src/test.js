@@ -23,8 +23,10 @@ const player = {
 
   bindEvents: () => {
     for (let key in player.events) {
-      const value = player.events[key]
-      document.querySelector(key).onclick = player[value]
+      if(player.events.hasOwnProperty(key)){
+        const value = player.events[key]
+        document.querySelector(key).onclick = player[value]
+      }
     }
   },
   run: () => {
