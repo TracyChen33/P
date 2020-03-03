@@ -143,7 +143,7 @@ var player = {
   init: function init() {
     demo.innerText = _CSS.default.substring(0, n);
     demo2.innerHTML = _CSS.default.substring(0, n);
-    id = player.play();
+    player.play();
   },
   run: function run() {
     n += 1;
@@ -159,7 +159,7 @@ var player = {
     console.log(n + ':' + _CSS.default.substr(0, n));
   },
   play: function play() {
-    return setInterval(player.run, time);
+    id = setInterval(player.run, time);
   },
   pause: function pause() {
     window.clearInterval(id);
@@ -167,26 +167,22 @@ var player = {
   slow: function slow() {
     player.pause();
     time = 300;
-    id = player.play();
+    player.play();
   },
   normal: function normal() {
     player.pause();
     time = 100;
-    id = player.play();
+    player.play();
   },
   fast: function fast() {
     player.pause();
     time = 0;
-    id = player.play();
+    player.play();
   }
 };
 player.init();
 document.querySelector('#btnPause').onclick = player.pause;
-
-document.querySelector('#btnPlay').onclick = function () {
-  id = player.play();
-};
-
+document.querySelector('#btnPlay').onclick = player.play;
 document.querySelector('#btnSlow').onclick = player.slow;
 document.querySelector('#btnNormal').onclick = player.normal;
 document.querySelector('#btnFast').onclick = player.fast;
