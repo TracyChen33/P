@@ -1,17 +1,12 @@
 import string from './CSS.js'
 
-const demo = document.querySelector('#demo')
-const demo2 = document.querySelector('#demo2')
-let n = 1
-let time = 100
-let id
 
 const player = {
-  init: () => {
-    demo.innerText = string.substring(0, n)
-    demo2.innerHTML = string.substring(0, n)
-    player.play()
-    player.bindEvents()
+  id: undefined,
+  time: 100,
+  ui: {
+    demo: document.querySelector('#demo'),
+    demo2: document.querySelector('#demo2'),
   },
   events: {
     '#btnPause': 'pause',
@@ -20,45 +15,51 @@ const player = {
     '#btnNormal': 'normal',
     '#btnFast': 'fast',
   },
-
+  n: 1,
+  init: () => {
+    player.ui.demo.innerText = string.substring(0, player.n)
+    player.ui.demo2.innerHTML = string.substring(0, player.n)
+    player.bindEvents()
+    player.play()
+  },
   bindEvents: () => {
     for (let key in player.events) {
-      if(player.events.hasOwnProperty(key)){
+      if (player.events.hasOwnProperty(key)) {
         const value = player.events[key]
         document.querySelector(key).onclick = player[value]
       }
     }
   },
   run: () => {
-    n += 1
-    if (n > string.length) {
-      window.clearInterval(id)
+    player.n += 1
+    if (player.n > string.length) {
+      window.clearInterval(player.id)
       return
     }
-    demo.innerText = string.substr(0, n)
-    demo2.innerHTML = string.substring(0, n)
-    demo.scrollTop = demo.scrollHeight
-    console.log(n + ':' + string.substr(0, n))
+    player.ui.demo.innerText = string.substr(0, player.n)
+    player.ui.demo2.innerHTML = string.substring(0, player.n)
+    player.ui.demo.scrollTop = player.demo.scrollHeight
+    console.log(player.n + ':' + string.substr(0, player.n))
   },
   play: () => {
-    id = setInterval(player.run, time)
+    player.id = setInterval(player.run, player.time)
   },
   pause: () => {
-    window.clearInterval(id)
+    window.clearInterval(player.id)
   },
   slow: () => {
     player.pause()
-    time = 300
+    player.time = 300
     player.play()
   },
   normal: () => {
     player.pause()
-    time = 100
+    player.time = 100
     player.play()
   },
   fast: () => {
     player.pause()
-    time = 0
+    player.time = 0
     player.play()
   },
 }

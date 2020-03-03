@@ -134,17 +134,12 @@ var _CSS = _interopRequireDefault(require("./CSS.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var demo = document.querySelector('#demo');
-var demo2 = document.querySelector('#demo2');
-var n = 1;
-var time = 100;
-var id;
 var player = {
-  init: function init() {
-    demo.innerText = _CSS.default.substring(0, n);
-    demo2.innerHTML = _CSS.default.substring(0, n);
-    player.play();
-    player.bindEvents();
+  id: undefined,
+  time: 100,
+  ui: {
+    demo: document.querySelector('#demo'),
+    demo2: document.querySelector('#demo2')
   },
   events: {
     '#btnPause': 'pause',
@@ -152,6 +147,13 @@ var player = {
     '#btnSlow': 'slow',
     '#btnNormal': 'normal',
     '#btnFast': 'fast'
+  },
+  n: 1,
+  init: function init() {
+    player.ui.demo.innerText = _CSS.default.substring(0, player.n);
+    player.ui.demo2.innerHTML = _CSS.default.substring(0, player.n);
+    player.bindEvents();
+    player.play();
   },
   bindEvents: function bindEvents() {
     for (var key in player.events) {
@@ -162,37 +164,37 @@ var player = {
     }
   },
   run: function run() {
-    n += 1;
+    player.n += 1;
 
-    if (n > _CSS.default.length) {
-      window.clearInterval(id);
+    if (player.n > _CSS.default.length) {
+      window.clearInterval(player.id);
       return;
     }
 
-    demo.innerText = _CSS.default.substr(0, n);
-    demo2.innerHTML = _CSS.default.substring(0, n);
-    demo.scrollTop = demo.scrollHeight;
-    console.log(n + ':' + _CSS.default.substr(0, n));
+    player.ui.demo.innerText = _CSS.default.substr(0, player.n);
+    player.ui.demo2.innerHTML = _CSS.default.substring(0, player.n);
+    player.ui.demo.scrollTop = player.demo.scrollHeight;
+    console.log(player.n + ':' + _CSS.default.substr(0, player.n));
   },
   play: function play() {
-    id = setInterval(player.run, time);
+    player.id = setInterval(player.run, player.time);
   },
   pause: function pause() {
-    window.clearInterval(id);
+    window.clearInterval(player.id);
   },
   slow: function slow() {
     player.pause();
-    time = 300;
+    player.time = 300;
     player.play();
   },
   normal: function normal() {
     player.pause();
-    time = 100;
+    player.time = 100;
     player.play();
   },
   fast: function fast() {
     player.pause();
-    time = 0;
+    player.time = 0;
     player.play();
   }
 };
@@ -225,7 +227,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61363" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53144" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
