@@ -154,32 +154,38 @@ var run = function run() {
   console.log(n + ':' + _CSS.default.substr(0, n));
 };
 
-var id = setInterval(run, time);
+var play = function play() {
+  return setInterval(run, time);
+};
 
-btnPause.onclick = function () {
+var pause = function pause() {
   window.clearInterval(id);
 };
 
+var id = play();
+
+btnPause.onclick = function () {};
+
 btnPlay.onclick = function () {
-  return id = setInterval(run, time);
+  return id = play();
 };
 
 btnSlow.onclick = function () {
-  window.clearInterval(id);
+  pause();
   time = 300;
-  id = setInterval(run, time);
+  id = play();
 };
 
 btnNormal.onclick = function () {
-  window.clearInterval(id);
+  pause();
   time = 100;
-  id = setInterval(run, time);
+  id = play();
 };
 
 btnFast.onclick = function () {
-  window.clearInterval(id);
+  pause();
   time = 0;
-  id = setInterval(run, time);
+  id = play();
 };
 },{"./CSS.js":"CSS.js"}],"../../../../.config/yarn/global/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
