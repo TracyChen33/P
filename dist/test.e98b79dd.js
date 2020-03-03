@@ -144,6 +144,20 @@ var player = {
     demo.innerText = _CSS.default.substring(0, n);
     demo2.innerHTML = _CSS.default.substring(0, n);
     player.play();
+    player.bindEvents();
+  },
+  events: {
+    '#btnPause': 'pause',
+    '#btnPlay': 'play',
+    '#btnSlow': 'slow',
+    '#btnNormal': 'normal',
+    '#btnFast': 'fast'
+  },
+  bindEvents: function bindEvents() {
+    for (var key in player.events) {
+      var value = player.events[key];
+      document.querySelector(key).onclick = player[value];
+    }
   },
   run: function run() {
     n += 1;
@@ -181,11 +195,6 @@ var player = {
   }
 };
 player.init();
-document.querySelector('#btnPause').onclick = player.pause;
-document.querySelector('#btnPlay').onclick = player.play;
-document.querySelector('#btnSlow').onclick = player.slow;
-document.querySelector('#btnNormal').onclick = player.normal;
-document.querySelector('#btnFast').onclick = player.fast;
 },{"./CSS.js":"CSS.js"}],"../../../../.config/yarn/global/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';

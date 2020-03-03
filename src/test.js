@@ -11,6 +11,21 @@ const player = {
     demo.innerText = string.substring(0, n)
     demo2.innerHTML = string.substring(0, n)
     player.play()
+    player.bindEvents()
+  },
+  events: {
+    '#btnPause': 'pause',
+    '#btnPlay': 'play',
+    '#btnSlow': 'slow',
+    '#btnNormal': 'normal',
+    '#btnFast': 'fast',
+  },
+
+  bindEvents: () => {
+    for (let key in player.events) {
+      const value = player.events[key]
+      document.querySelector(key).onclick = player[value]
+    }
   },
   run: () => {
     n += 1
@@ -24,7 +39,7 @@ const player = {
     console.log(n + ':' + string.substr(0, n))
   },
   play: () => {
-   id= setInterval(player.run, time)
+    id = setInterval(player.run, time)
   },
   pause: () => {
     window.clearInterval(id)
@@ -48,8 +63,3 @@ const player = {
 
 player.init()
 
-document.querySelector('#btnPause').onclick = player.pause
-document.querySelector('#btnPlay').onclick = player.play
-document.querySelector('#btnSlow').onclick = player.slow
-document.querySelector('#btnNormal').onclick = player.normal
-document.querySelector('#btnFast').onclick = player.fast
