@@ -134,59 +134,62 @@ var _CSS = _interopRequireDefault(require("./CSS.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var time = 100;
+var demo = document.querySelector('#demo');
+var demo2 = document.querySelector('#demo2');
 var n = 1;
-demo.innerText = _CSS.default.substring(0, n);
-demo2.innerHTML = _CSS.default.substring(0, n);
-console.log(n);
+var time = 100;
+var id;
+var player = {
+  init: function init() {
+    demo.innerText = _CSS.default.substring(0, n);
+    demo2.innerHTML = _CSS.default.substring(0, n);
+    id = player.play();
+  },
+  run: function run() {
+    n += 1;
 
-var run = function run() {
-  n += 1;
+    if (n > _CSS.default.length) {
+      window.clearInterval(id);
+      return;
+    }
 
-  if (n > _CSS.default.length) {
+    demo.innerText = _CSS.default.substr(0, n);
+    demo2.innerHTML = _CSS.default.substring(0, n);
+    demo.scrollTop = demo.scrollHeight;
+    console.log(n + ':' + _CSS.default.substr(0, n));
+  },
+  play: function play() {
+    return setInterval(player.run, time);
+  },
+  pause: function pause() {
     window.clearInterval(id);
-    return;
+  },
+  slow: function slow() {
+    player.pause();
+    time = 300;
+    id = player.play();
+  },
+  normal: function normal() {
+    player.pause();
+    time = 100;
+    id = player.play();
+  },
+  fast: function fast() {
+    player.pause();
+    time = 0;
+    id = player.play();
   }
+};
+player.init();
+document.querySelector('#btnPause').onclick = player.pause;
 
-  demo.innerText = _CSS.default.substr(0, n);
-  demo2.innerHTML = _CSS.default.substring(0, n);
-  demo.scrollTop = demo.scrollHeight;
-  console.log(n + ':' + _CSS.default.substr(0, n));
+document.querySelector('#btnPlay').onclick = function () {
+  id = player.play();
 };
 
-var play = function play() {
-  return setInterval(run, time);
-};
-
-var pause = function pause() {
-  window.clearInterval(id);
-};
-
-var id = play();
-
-btnPause.onclick = function () {};
-
-btnPlay.onclick = function () {
-  return id = play();
-};
-
-btnSlow.onclick = function () {
-  pause();
-  time = 300;
-  id = play();
-};
-
-btnNormal.onclick = function () {
-  pause();
-  time = 100;
-  id = play();
-};
-
-btnFast.onclick = function () {
-  pause();
-  time = 0;
-  id = play();
-};
+document.querySelector('#btnSlow').onclick = player.slow;
+document.querySelector('#btnNormal').onclick = player.normal;
+document.querySelector('#btnFast').onclick = player.fast;
 },{"./CSS.js":"CSS.js"}],"../../../../.config/yarn/global/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
